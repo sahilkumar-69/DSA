@@ -63,5 +63,7 @@
 
 // -----------------------------------------------------------------------
 
- 
-console.log(2**31);
+// console.log(2**31);
+
+let arr = [1, 2, "hello", {}, []];
+console.log(typeof undefined, typeof null);

@@ -1,4 +1,7 @@
-// bubble sort technique
+/*
+ bubble sort technique
+ time complexity O(n^2)
+*/
 
 let arr = [3, 2, 4, 6, 4];
 

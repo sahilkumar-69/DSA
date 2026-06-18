@@ -235,11 +235,11 @@ const ll = new LinkedList();
 
 ll.append(10);
 ll.append(20);
-ll.append(20);
-ll.append(20);
+// ll.append(20);
+// ll.append(20);
 ll.append(40);
-ll.append(40);
-ll.append(40);
+// ll.append(40);
+// ll.append(40);
 ll.append(50);
 // ll.append();
 
@@ -291,7 +291,21 @@ function printLL(h) {
   console.log(result + "null");
 }
 
-const newlist = removeDuplicate(ll);
-console.log(newlist);
-newlist.print();
+// const newlist = removeDuplicate(ll);
+// console.log(newlist);
+// newlist.print();
+// printLL(ll);
+
+function swapNodeIteratively(head) {
+  let curr = head;
+
+  while (curr && curr.next) {
+    [curr.value, curr.next.value] = [curr.next.value, curr.value];
+    curr = curr.next.next;
+  }
+
+  // printLL(curr);
+}
+
+swapNodeIteratively(ll);
 printLL(ll);

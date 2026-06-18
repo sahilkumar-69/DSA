@@ -1,5 +1,7 @@
-// Selection sort | O(n²)
-
+/*
+ Selection sort technique
+ time complexity O(n^2)
+*/
 function selectionSort(arr) {
   let temp = null;
   for (let counter = 0; counter < arr.length - 1; counter++) {
@@ -7,7 +9,6 @@ function selectionSort(arr) {
     for (let i = counter + 1; i < arr.length; i++) {
       if (arr[i] < arr[min]) min = i;
     }
-    // console.log("after");
     temp = arr[counter];
     arr[counter] = arr[min];
     arr[min] = temp;
