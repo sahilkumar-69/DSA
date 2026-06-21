@@ -1,6 +1,8 @@
 // Note the function names are same as question name on leetcode
 
 class questionOn2dArray {
+  count = 0;
+
   mergeIntervals(intervals) {
     intervals.sort((a, b) => a[0] - b[0]);
 
@@ -42,8 +44,46 @@ class questionOn2dArray {
 
     return result;
   }
-}
 
+  Count_inversions(arr) {
+    if (arr.length <= 1) {
+      return arr;
+    }
+
+    const left = this.Count_inversions(arr.slice(0, Math.ceil(arr.length / 2)));
+    const right = this.Count_inversions(arr.slice(Math.ceil(arr.length / 2)));
+
+    return this.merge(left, right);
+  }
+
+  merge(left, right) {
+    let result = [];
+    let i = 0;
+    let j = 0;
+
+    while (i < left.length && j < right.length) {
+      if (left[i] <= right[j]) {
+        result.push(left[i]);
+        i++;
+      } else {
+        result.push(right[j]);
+        this.count += left.length - i;
+        j++;
+      }
+    }
+    while (i < left.length) {
+      result.push(left[i]);
+      i++;
+    }
+    while (j < right.length) {
+      result.push(right[j]);
+      j++;
+    }
+
+    return result;
+    // return this.count;
+  }
+}
 const quesInstance = new questionOn2dArray();
 
 // const result = quesInstance.mergeIntervals([
@@ -53,8 +93,10 @@ const quesInstance = new questionOn2dArray();
 //   [15, 18],
 // ]);
 
-const result = quesInstance.Find_the_repeating_and_missing_numbers([
-  2, 4, 2, 5, 1,
-]);
+// const result = quesInstance.Find_the_repeating_and_missing_numbers([
+//   2, 4, 2, 5, 1,
+// ]);
 
-console.log(result);
+const result = quesInstance.Count_inversions([4, 3, 2, 1, 5]);
+
+console.log(quesInstance.count);
