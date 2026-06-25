@@ -95,20 +95,53 @@ class questionOn2dArray {
     }
     return count;
   }
+
+  Longest_Subarray_with_Sum_K(arr, k, approach) {
+    switch (approach) {
+      case "brute_force":
+        // Implementation for brute force approach
+        let longestSubarray = 0;
+        for (let i = 0; i < arr.length; i++) {
+          let localSum = arr[i];
+          for (let j = i + 1; j <= arr.length; j++) {
+            localSum += arr[j];
+
+            if (localSum == k) {
+              longestSubarray = Math.max(j - i + 1, longestSubarray);
+            }
+          }
+        }
+        return longestSubarray;
+        break;
+      case "hash_map":
+        // Implementation for hash map approach
+        let map = new Map();
+        let longest = 0;
+        let sum = 0;
+
+        for (let num = 0; num < arr.length; num++) {
+          sum += arr[num];
+
+          const need = sum - k;
+
+          if (map.get(need)) longest = Math.max(map.get(need) + 1, longest);
+
+          map.set(sum, num);
+        }
+
+        return longest;
+        break;
+      default:
+        throw new Error("Invalid approach");
+    }
+  }
 }
 const quesInstance = new questionOn2dArray();
 
-// const result = quesInstance.mergeIntervals([
-//   [1, 3],
-//   [2, 6],
-//   [8, 10],
-//   [15, 18],
-// ]);
-
-// const result = quesInstance.Find_the_repeating_and_missing_numbers([
-//   2, 4, 2, 5, 1,
-// ]);
-
-const result = quesInstance.Count_inversions([4, 3, 2, 1, 5]);
-
-console.log(quesInstance.count);
+const result = quesInstance.Longest_Subarray_with_Sum_K(
+  [1, 2, 3, 4, 5, 6],
+  // [9, -3, 3, -1, 6, -5],
+  9,
+  "hash_map",
+);
+console.log(result);
