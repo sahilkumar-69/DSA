@@ -122,10 +122,11 @@ class questionOn2dArray {
         for (let num = 0; num < arr.length; num++) {
           sum += arr[num];
 
+          if (sum == k) longest = num + 1;
+
           const need = sum - k;
 
           if (map.get(need)) longest = Math.max(map.get(need) + 1, longest);
-
           map.set(sum, num);
         }
 
@@ -135,13 +136,79 @@ class questionOn2dArray {
         throw new Error("Invalid approach");
     }
   }
+
+  Number_of_Subarrays_with_xor_K(arr, k, approach) {
+    switch (approach) {
+      case "brute_force":
+        // Implementation for brute force approach
+        let counter = 0;
+        for (let i = 0; i < arr.length; i++) {
+          let localSum = arr[i];
+          for (let j = i + 1; j <= arr.length; j++) {
+            localSum ^= arr[j];
+
+            if (localSum == k) {
+              counter++;
+            }
+          }
+        }
+        return counter;
+        break;
+      case "hash_map":
+        // Implementation for hash map approach
+        let map = new Map();
+        map.set(0, 1);
+        let count = 0;
+        let xor = 0;
+
+        for (let num = 0; num < arr.length; num++) {
+          xor ^= arr[num];
+
+          const need = xor ^ k;
+
+          if (map.get(need)) count += map.get(need);
+
+          map.set(xor, (map.get(xor) || 0) + 1);
+        }
+
+        return count;
+        break;
+      default:
+        throw new Error("Invalid approach");
+    }
+  }
+
+  // find pair with sum = target in sorted and rotated array;
+  pairSum2(arr, target) {
+    let bp = null;
+    let n = arr.length;
+    for (let i = 1; i < n; i++) {
+      if (arr[i - 1] > arr[i]) {
+        bp = i;
+        break;
+      }
+    }
+
+    let lp = bp || 0;
+    let rp = bp ? bp - 1 : n - 1;
+
+    while (lp !== rp) {
+      let sum = arr[lp] + arr[rp];
+      console.log(arr[lp], arr[rp]);
+      if (sum === target) return true;
+      else if (sum < target) lp = (lp + 1) % n;
+      else rp = (rp + n - 1) % n;
+    }
+
+    return false;
+  }
 }
 const quesInstance = new questionOn2dArray();
 
-const result = quesInstance.Longest_Subarray_with_Sum_K(
-  [1, 2, 3, 4, 5, 6],
-  // [9, -3, 3, -1, 6, -5],
-  9,
-  "hash_map",
+const result = quesInstance.pairSum2(
+  [5, 6, 7, 8, 9],
+
+  21,
 );
+
 console.log(result);
