@@ -141,12 +141,12 @@ class LinkedList {
 
     while (curr !== null) {
       nxt = curr.next;
-
+ 
       curr.next = prev;
 
       prev = curr;
-
       curr = nxt;
+
     }
     // curr.next = prev;
     this.head = prev;
