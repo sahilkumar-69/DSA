@@ -1,13 +1,16 @@
-const arr = [10, 20, 30];
+let a1 = [
+  2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4,
+  3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2,
+  4, 3, 2, 4, 3, 2, 4, 3, 9,
+];
 
-arr.name = "MyArray";
+let a2 = [
+  5, 6, 4, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4,
+  3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2,
+  4, 3, 2, 4, 3, 9, 9, 9, 9,
+];
 
-arr[-1] = 100;
+let sum1 = a1.reduce((acc, curr) => acc + curr, "");
+let sum2 = a2.reduce((acc, curr) => acc + curr, "");
 
-const iterator = arr[Symbol.iterator]();
-
-console.log(iterator.next());
-
-// for (const key of arr.keys()) {
-// console.log(Object.entries(Object.prototype));
-// }
+console.log(BigInt(sum1) + BigInt(sum2));

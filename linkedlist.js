@@ -1,7 +1,7 @@
 class Node {
-  constructor(value) {
+  constructor(value, next = null) {
     this.value = value;
-    this.next = null;
+    this.next = next;
   }
 }
 
@@ -12,6 +12,24 @@ class LinkedList {
   }
 
   append(value) {
+    if (value instanceof Node) {
+      if (!this.head) {
+        this.head = value;
+        this.size++;
+        return;
+      }
+
+      let current = this.head;
+
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = value;
+      this.size++;
+
+      return;
+    }
+
     const newNode = new Node(value);
 
     if (!this.head) {
@@ -83,6 +101,52 @@ class LinkedList {
     console.log(result + "null");
   }
 
+  cycleDetection() {
+    let slow = (fast = this.head);
+
+    while (fast && fast.next && slow) {
+      slow = slow.next;
+      fast = fast.next.next;
+
+      if (fast === slow) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  removeDuplicate() {
+    let curr = this.head;
+
+    while (curr && curr.next) {
+      if (curr.value == curr.next.value) {
+        curr.next = curr.next.next;
+        this.size--;
+      } else {
+        curr = curr.next;
+      }
+    }
+    return this.head;
+  }
+
+  printLinkedList() {
+    let curr = this.head;
+
+    while (curr) {
+      console.log(curr);
+      curr = curr.next;
+    }
+  }
+
+  swapNodeIteratively() {
+    let curr = this.head;
+
+    while (curr && curr.next) {
+      [curr.value, curr.next.value] = [curr.next.value, curr.value];
+      curr = curr.next.next;
+    }
+  }
+
   removeFromPosition(position) {
     let temp = this.head;
 
@@ -141,12 +205,11 @@ class LinkedList {
 
     while (curr !== null) {
       nxt = curr.next;
- 
+
       curr.next = prev;
 
       prev = curr;
       curr = nxt;
-
     }
     // curr.next = prev;
     this.head = prev;
@@ -229,83 +292,50 @@ class LinkedList {
 
     return slow.value;
   }
-}
 
-const ll = new LinkedList();
+  removeElements() {
+    this.reverseIterativeApproach();
 
-ll.append(10);
-ll.append(20);
-// ll.append(20);
-// ll.append(20);
-ll.append(40);
-// ll.append(40);
-// ll.append(40);
-ll.append(50);
-// ll.append();
+    let maxSeen = this.head.value;
+    let current = this.head;
 
-// console.log(ll.reverseUsingStack());
-// console.log(ll.reverseRecursiveApproach(ll.head));
-// console.log(ll.findMiddle2());
-// ll.print();
-
-function cycleDetection(head) {
-  // Using Floyd's Cycle-Finding Algorithm  Time Complexity: O(n), space: O(1)
-  let slow = (fast = head);
-
-  while (fast && fast.next && slow) {
-    slow = slow.next;
-    fast = fast.next.next;
-
-    if (fast === slow) {
-      return true;
+    while (current && current.next) {
+      if (current.next.value < maxSeen) {
+        current.next = current.next.next;
+        this.size--;
+      } else {
+        current = current.next;
+        maxSeen = current.value;
+      }
     }
+
+    this.reverseIterativeApproach();
   }
-  return false;
-}
-// const isCycled = cycleDetection(ll);
 
-function removeDuplicate(h) {
-  let curr = h.head;
+  removeCycle(head) {
+    let slow = head;
+    let fast = head;
+    let isCycleExists = false;
+    while (fast.next) {
+      fast = fast.next.next;
+      slow = slow.next;
 
-  while (curr && curr.next) {
-    if (curr.value == curr.next.value) {
-      curr.next = curr.next.next;
-      h.size--;
-    } else {
-      curr = curr.next;
+      if (fast == slow) isCycleExists = true;
     }
+
+    if (isCycleExists) {
+      slow = head.next;
+
+      while (slow !== fast.next) {
+        slow = slow.next;
+        fast = fast.next;
+      }
+
+      fast.next = null;
+    }
+    return head;
   }
-  return h;
 }
 
-function printLL(h) {
-  let curr = h.head;
+// const ll = new LinkedList();
 
-  let result = "";
-
-  while (curr) {
-    result += curr.value + "->";
-    curr = curr.next;
-  }
-
-  console.log(result + "null");
-}
-
-// const newlist = removeDuplicate(ll);
-// console.log(newlist);
-// newlist.print();
-// printLL(ll);
-
-function swapNodeIteratively(head) {
-  let curr = head;
-
-  while (curr && curr.next) {
-    [curr.value, curr.next.value] = [curr.next.value, curr.value];
-    curr = curr.next.next;
-  }
-
-  // printLL(curr);
-}
-
-swapNodeIteratively(ll);
-printLL(ll);
