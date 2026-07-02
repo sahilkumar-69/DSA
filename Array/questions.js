@@ -207,7 +207,6 @@ const quesInstance = new questionOn2dArray();
 
 const result = quesInstance.pairSum2(
   [5, 6, 7, 8, 9],
-
   21,
 );
 
