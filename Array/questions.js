@@ -1,8 +1,8 @@
 // Note the function names are same as question name on leetcode
 
 class questionOn2dArray {
+  
   count = 0;
-
   mergeIntervals(intervals) {
     intervals.sort((a, b) => a[0] - b[0]);
 
