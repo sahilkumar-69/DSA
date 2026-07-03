@@ -89,8 +89,8 @@ class LinkedList {
     return 1 + this.countRecursively(head.next);
   }
 
-  print() {
-    let current = this.head;
+  print(head) {
+    let current = head || this.head;
 
     let result = "";
 
@@ -278,19 +278,19 @@ class LinkedList {
     return curr;
   }
 
-  findMiddle2() {
+  findMiddle2(tempHead) {
     // using fast and slow pointer
     // Hare and Tortoise Algorithm - O(n) Time and O(1) Space
 
-    let slow = this.head;
-    let fast = this.head;
+    let slow = tempHead || this.head;
+    let fast = tempHead || this.head;
 
     while (fast !== null && fast.next !== null) {
       slow = slow.next;
       fast = fast.next.next;
     }
 
-    return slow.value;
+    return slow;
   }
 
   removeElements() {
@@ -335,7 +335,96 @@ class LinkedList {
     }
     return head;
   }
+
+  mergeSort(head) {
+    if (head == null || head.next == null) return head;
+
+    let mid = this.getMiddle(head);
+    let left = head;
+    let right = mid.next;
+    mid.next = null;
+
+    left = this.mergeSort(left);
+    right = this.mergeSort(right);
+
+    return this.merge(left, right);
+  }
+
+  merge(left, right) {
+    let dummy = new Node(0);
+    let current = dummy;
+
+    while (left && right) {
+      if (left.value < right.value) {
+        current.next = left;
+        left = left.next;
+      } else {
+        current.next = right;
+        right = right.next;
+      }
+      current = current.next;
+    }
+
+    while (left) {
+      current.next = left;
+      left = left.next;
+      current = current.next;
+    }
+
+    while (right) {
+      current.next = right;
+      right = right.next;
+      current = current.next;
+    }
+
+    current.next = left || right;
+    return dummy.next;
+  }
+
+  getMiddle(head) {
+    let slow = head;
+    let fast = head.next;
+
+    while (fast && fast.next) {
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+
+    return slow;
+  }
+
+  zigZag() {
+    let head = this.head;
+    let middle = this.getMiddle(head);
+    let left = head;
+    let right = middle.next;
+    middle.next = null;
+
+    right = this.reverseRecursiveApproach(right);
+
+    let next = null;
+    while (left && right) {
+      next = left.next;
+      left.next = right;
+      left = next;
+      next = right.next;
+      right.next = left;
+      right = next;
+    }
+  }
 }
 
-// const ll = new LinkedList();
+const ll = new LinkedList();
 
+ll.append(1);
+ll.append(2);
+ll.append(3);
+ll.append(4);
+ll.append(5);
+ll.append(6);
+ll.append(7);
+ll.append(8);
+
+ll.print(ll.head);
+ll.mergeSort(ll.zigZag());
+ll.print(ll.head);
