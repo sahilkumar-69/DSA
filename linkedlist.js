@@ -414,6 +414,99 @@ class LinkedList {
   }
 }
 
+// approach 1 for flattening the linked list using merge sort
+// function flatten(root) {
+//   if (!root.bottom && !root.next) return root;
+
+//   let temp = root;
+
+//   while (temp) {
+//     if (!temp.bottom) {
+//       temp.bottom = temp.next;
+//       temp = temp.bottom;
+//       continue;
+//     }
+
+//     let next = temp.next;
+
+//     temp.next = null;
+
+//     while (temp.bottom) {
+//       temp = temp.bottom;
+//     }
+
+//     temp.bottom = next;
+//     temp = next;
+//   }
+
+//   return mergeSort(root);
+// }
+
+// function mergeSort(head) {
+//   if (!head || !head.bottom) return head;
+
+//   let middle = getMiddle(head);
+//   let next = middle.bottom;
+
+//   middle.bottom = null;
+
+//   let left = mergeSort(head);
+//   let right = mergeSort(next);
+
+//   return merge(left, right);
+// }
+
+// function merge(left, right) {
+//   let head = new Node(0);
+//   let temp = head;
+
+//   while (left && right) {
+//     if (left.data < right.data) {
+//       temp.bottom = left;
+//       left = left.bottom;
+//     } else {
+//       temp.bottom = right;
+//       right = right.bottom;
+//     }
+//     temp = temp.bottom;
+//   }
+
+//   while (left) {
+//     temp.bottom = left;
+//     left = left.bottom;
+//     temp = temp.bottom;
+//   }
+
+//   while (right) {
+//     temp.bottom = right;
+//     right = right.bottom;
+//     temp = temp.bottom;
+//   }
+
+//   return head.bottom;
+// }
+
+// function getMiddle(head) {
+//   let slow = head;
+//   let fast = head.bottom;
+//   while (fast && fast.bottom) {
+//     slow = slow.bottom;
+//     fast = fast.bottom.bottom;
+//   }
+
+//   return slow;
+// }
+
+// approach 2 for flattening the linked list using recursion
+
+// function flatten(root) {
+//   if (!root.next) return root;
+
+//   let l1 = flatten(root.next);
+
+//   return merge(root, l1);
+// }
+
 const ll = new LinkedList();
 
 ll.append(1);
