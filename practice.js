@@ -1,16 +1,29 @@
-let a1 = [
-  2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4,
-  3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2,
-  4, 3, 2, 4, 3, 2, 4, 3, 9,
-];
+// function* num() {
+//   console.log("first");
 
-let a2 = [
-  5, 6, 4, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4,
-  3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2,
-  4, 3, 2, 4, 3, 9, 9, 9, 9,
-];
+//   yield 121;
 
-let sum1 = a1.reduce((acc, curr) => acc + curr, "");
-let sum2 = a2.reduce((acc, curr) => acc + curr, "");
+//   console.log("second");
 
-console.log(BigInt(sum1) + BigInt(sum2));
+//   yield 2;
+
+//   console.log("third");
+//   yield 22;
+// }
+
+// let iterator = num();
+
+// console.log(iterator.next());
+// console.log(iterator.return("dasf"));
+
+// console.log(iterator.next());
+// console.log(iterator.next());
+// console.log(iterator.next());
+
+const value = function named(name, age) {
+  console.log("hello", , arguments);
+};
+
+value("Alice", 30);
+
+// named();

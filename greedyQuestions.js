@@ -49,4 +49,41 @@ class greedy {
     }
     return max;
   }
+
+  jobSequencing(deadline, profit) {
+    let lastDeadLine = 0;
+    let netProfit = 0;
+    let totalJobs = 0;
+    let jobs = [];
+
+    for (let i = 0; i < profit.length; i++) {
+      jobs.push([deadline[i], profit[i]]);
+      lastDeadLine = Math.max(lastDeadLine, deadline[i]);
+    }
+
+    jobs.sort((a, b) => b[1] - a[1]);
+
+    let indexingArray = Array.from({ length: lastDeadLine + 1 }).fill(false);
+
+    for (let i = 0; i < jobs.length; i++) {
+      if (jobs[i][0] == 0 && jobs[i][1] == 0) continue;
+      let j = jobs[i][0];
+      if (!indexingArray[j]) {
+        indexingArray[j] = true;
+        netProfit += jobs[i][1];
+        totalJobs++;
+      } else {
+        for (let n = j; n > 0; n--) {
+          if (!indexingArray[n]) {
+            indexingArray[n] = true;
+            netProfit += jobs[i][1];
+            totalJobs++;
+            break;
+          }
+        }
+      }
+    }
+
+    return [totalJobs, netProfit];
+  }
 }
