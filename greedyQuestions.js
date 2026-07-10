@@ -86,4 +86,29 @@ class greedy {
 
     return [totalJobs, netProfit];
   }
+
+  fractionalKnapsack(val, wt, capacity) {
+    // code here
+    let combination = [];
+    let score = 0;
+
+    for (let i = 0; i < wt.length; i++) {
+      combination.push([val[i], wt[i]]);
+    }
+
+    combination.sort((a, b) => b[0] / b[1] - a[0] / a[1]);
+
+    for (let combo of combination) {
+      if (capacity >= combo[1]) {
+        score += combo[0];
+        capacity -= combo[1];
+      } else {
+        score += (combo[0] / combo[1]) * capacity;
+        break;
+      }
+    }
+
+    return score;
+  }
 }
+

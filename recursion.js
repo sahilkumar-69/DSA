@@ -80,9 +80,20 @@ class recursion {
 
     return this.friendsPairing(n - 1) + (n - 1) * this.friendsPairing(n - 2);
   }
+
+  subsetSum(arr, sum, index, subset) {
+    if (index == arr.length) {
+      subset.add(sum);
+      return;
+    }
+
+    this.subsetSum(arr, sum + arr[index], index + 1, subset);
+    this.subsetSum(arr, sum, index + 1, subset);
+  }
 }
 
 const recursionInstance = new recursion();
+// let subset = new Set();
+// recursionInstance.subsetSum([1, 2, 5], 0, 0, subset);
 
-const result = recursionInstance.friendsPairing(4);
-console.log(result);
+// console.log([...subset].sort((a, b) => a - b));
