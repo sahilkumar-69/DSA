@@ -7,4 +7,4 @@ Object.defineProperty(obj, "name", {
   configurable: false,
 });
 
-console.log(Object.getOwnPropertyDescriptors(obj));
+console.log(Object.getPrototypeOf(obj));
