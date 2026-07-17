@@ -90,10 +90,40 @@ class recursion {
     this.subsetSum(arr, sum + arr[index], index + 1, subset);
     this.subsetSum(arr, sum, index + 1, subset);
   }
+
+  palindromePartitioning2(str) {
+    let n = str.length;
+
+    let cuts = Array(n);
+
+    for (let index = 0; index < cuts.length; index++) {
+      cuts[index] = index;
+    }
+
+    for (let center = 0; center < cuts.length; center++) {
+      // expand odd length palindrome
+      expand(center, center);
+
+      // expand even length palindrome
+      expand(center, center + 1);
+    }
+
+    return cuts[n - 1];
+
+    function expand(left, right) {
+      while (left >= 0 && right < n && str[left] === str[right]) {
+        if (left === 0) cuts[right] = 0;
+        else cuts[right] = Math.min(cuts[right], cuts[left - 1] + 1);
+        left--;
+        right++;
+      }
+    }
+  }
 }
 
 const recursionInstance = new recursion();
 // let subset = new Set();
 // recursionInstance.subsetSum([1, 2, 5], 0, 0, subset);
+// console.log(recursionInstance.palindromePartitioning2("abdbdbduiub"));
 
 // console.log([...subset].sort((a, b) => a - b));
